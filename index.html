@@ -1,69 +1,236 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Astro Guidance by Sarbajit</title>
-
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background: linear-gradient(135deg, #3b1e69, #6a42d9);
-            color: #fff;
-            text-align: center;
-        }
-        header {
-            padding: 60px 20px;
-        }
-        h1 {
-            font-size: 36px;
-            margin-bottom: 10px;
-        }
-        h2 {
-            font-weight: 300;
-            margin-bottom: 40px;
-        }
-        section {
-            background: rgba(255,255,255,0.1);
-            padding: 30px 20px;
-            border-radius: 12px;
-            margin: 20px;
-        }
-        footer {
-            margin-top: 40px;
-            padding: 20px;
-            opacity: 0.7;
-            font-size: 14px;
-        }
-    </style>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Astro by SG — Astro Guidance</title>
+<meta name="description" content="Astro by SG — Personalized astrology readings, compatibility reports, and guidance by Sarbajit." />
+<style>
+  :root{
+    --bg1:#0b0710;
+    --bg2:#241033;
+    --accent:#b98fff;
+    --muted:#cfc7d9;
+    --card:#0f0b14;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%;margin:0;font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;color:var(--muted);background:linear-gradient(180deg,var(--bg1) 0%,var(--bg2) 100%);-webkit-font-smoothing:antialiased}
+  .container{max-width:1000px;margin:32px auto;padding:20px;}
+  header{display:flex;align-items:center;justify-content:space-between;gap:20px}
+  .brand{display:flex;align-items:center;gap:14px}
+  .logo{
+    width:56px;height:56px;border-radius:12px;
+    background:radial-gradient(circle at 30% 20%, rgba(185,143,255,.18), transparent 15%), linear-gradient(135deg,#3b1e69,#6a42d9);
+    display:flex;align-items:center;justify-content:center;font-weight:700;color:white;font-size:20px;box-shadow:0 6px 20px rgba(90,46,150,.28)
+  }
+  h1{margin:0;font-size:20px;color:#fff}
+  p.lead{margin:0;color:var(--muted);opacity:.95}
+  nav{display:flex;gap:12px;align-items:center}
+  .btn{background:transparent;border:1px solid rgba(255,255,255,.06);padding:9px 14px;border-radius:10px;color:var(--muted);text-decoration:none;font-weight:600;cursor:pointer}
+  .btn.primary{background:linear-gradient(90deg,var(--accent),#8cc4ff);color:#0b0710;border:none;box-shadow:0 6px 20px rgba(185,143,255,.12)}
+  .hero{display:grid;grid-template-columns:1fr 380px;gap:28px;align-items:start;margin-top:28px}
+  .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); border-radius:14px;padding:20px;box-shadow:0 6px 30px rgba(0,0,0,.6);border:1px solid rgba(255,255,255,0.03)}
+  .intro h2{color:#fff;margin:0 0 6px 0;font-size:28px}
+  .intro p{color:var(--muted);margin:6px 0 14px 0}
+  .services{display:flex;flex-direction:column;gap:12px;margin-top:12px}
+  .service{display:flex;align-items:flex-start;gap:12px;padding:12px;border-radius:10px;background:rgba(255,255,255,0.02)}
+  .service .icon{width:44px;height:44;border-radius:10px;background:linear-gradient(135deg,#7c4bff,#b98fff);display:flex;align-items:center;justify-content:center;font-weight:700;color:#fff}
+  .price{font-weight:700;color:#fff}
+  .right-panel{position:relative}
+  .book-card{padding:18px;border-radius:12px;text-align:left}
+  .field{display:flex;flex-direction:column;margin-bottom:10px}
+  input,select,textarea{background:transparent;border:1px solid rgba(255,255,255,0.06);padding:10px;border-radius:8px;color:var(--muted);outline:none}
+  textarea{min-height:100px;resize:vertical}
+  .small{font-size:13px;color:#bfb3de}
+  .wa{display:flex;gap:10px;align-items:center}
+  .wa a{display:inline-flex;align-items:center;gap:8px;padding:9px 12px;border-radius:10px;background:#25D366;color:#062B12;text-decoration:none;font-weight:700}
+  footer{margin-top:36px;text-align:center;color:#9c91b8;font-size:13px;padding-bottom:60px}
+  .flex{display:flex;gap:12px;align-items:center}
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px}
+  @media (max-width:900px){.hero{grid-template-columns:1fr;}.grid3{grid-template-columns:1fr}.right-panel{order:-1}}
+  /* subtle floating stars */
+  .stars{position:fixed;inset:0;pointer-events:none;background-image:radial-gradient(rgba(255,255,255,0.03) 1px, transparent 1px);background-size:40px 40px;mix-blend-mode:screen;opacity:.25}
+</style>
 </head>
 <body>
-    <header>
-        <h1>Astro Guidance by Sarbajit</h1>
-        <h2>Your cosmic guide for clarity, purpose, and success</h2>
-    </header>
+<div class="stars" aria-hidden="true"></div>
 
-    <section>
-        <h3>Welcome</h3>
-        <p>
-            This is the beginning of your astrology-based global business.  
-            More pages, payment gateway, services, booking, and PDF reports  
-            will be added step-by-step.
-        </p>
+<div class="container">
+  <header>
+    <div class="brand">
+      <div class="logo">SG</div>
+      <div>
+        <h1>Astro by SG</h1>
+        <p class="lead">Sagittarius Sun · Taurus Moon · Virgo Rising</p>
+      </div>
+    </div>
+
+    <nav>
+      <a class="btn" href="#services">Services</a>
+      <a class="btn" href="#booking">Book</a>
+      <a class="btn" href="#contact">Contact</a>
+      <a class="btn primary" href="#pricing">Start ₹199</a>
+    </nav>
+  </header>
+
+  <main class="hero">
+    <section class="card intro">
+      <h2>Personal astrology readings for clarity & growth</h2>
+      <p>Quick, insightful, and beautifully presented PDF reports — handcrafted by Sarbajit. Start with a Personal Astrology Report or Relationship Compatibility reading.</p>
+
+      <div class="services" id="services">
+        <div class="service">
+          <div class="icon">☀︎</div>
+          <div>
+            <div><strong>Personal Astrology Report</strong></div>
+            <div class="small">6–8 page PDF with chart, Sun/Moon/Rising, career & 6-month forecast</div>
+            <div class="price">₹399</div>
+          </div>
+        </div>
+
+        <div class="service">
+          <div class="icon">❤</div>
+          <div>
+            <div><strong>Compatibility Report</strong></div>
+            <div class="small">Love & partnership decoding — emotional language, strengths, challenges</div>
+            <div class="price">₹599</div>
+          </div>
+        </div>
+
+        <div class="service">
+          <div class="icon">🔮</div>
+          <div>
+            <div><strong>Weekly Guidance Pack</strong></div>
+            <div class="small">Mini forecasts, lucky days & affirmation wallpapers</div>
+            <div class="price">₹149</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top:18px;display:flex;gap:10px;flex-wrap:wrap">
+        <a class="btn primary" href="#booking">Book a Reading</a>
+        <a class="btn" href="mailto:your-email@example.com?subject=Astro%20Reading%20request">Email Me</a>
+        <a class="btn" href="#" id="sample-report">Preview Sample</a>
+      </div>
+
     </section>
 
-    <section>
-        <h3>About</h3>
-        <p>
-            Personalized readings based on your birth details:  
-            <br>Date of Birth · Time of Birth · Location of Birth
-        </p>
-    </section>
+    <aside class="card right-panel book-card" id="booking" aria-labelledby="booking-heading">
+      <h3 id="booking-heading">Book your reading</h3>
+      <p class="small">Fill details — you'll receive the PDF via WhatsApp / Email.</p>
 
-    <footer>
-        © 2025 Astro Guidance by Sarbajit • All Rights Reserved
-    </footer>
+      <div style="margin-top:8px">
+        <div class="field">
+          <label class="small">Full name</label>
+          <input id="name" placeholder="Your name" />
+        </div>
+
+        <div class="field">
+          <label class="small">Date of Birth</label>
+          <input id="dob" type="date" />
+        </div>
+
+        <div class="field">
+          <label class="small">Time of Birth (if known)</label>
+          <input id="tob" placeholder="02:10 (24-hr) or unknown" />
+        </div>
+
+        <div class="field">
+          <label class="small">Place of Birth</label>
+          <input id="pob" placeholder="City, Country" />
+        </div>
+
+        <div class="field">
+          <label class="small">Service</label>
+          <select id="service">
+            <option value="Personal Astrology Report">Personal Astrology Report — ₹399</option>
+            <option value="Compatibility Report">Compatibility Report — ₹599</option>
+            <option value="Weekly Pack">Weekly Pack — ₹149</option>
+          </select>
+        </div>
+
+        <div style="display:flex;gap:8px;margin-top:8px">
+          <button class="btn primary" onclick="startPayment()">Pay & Book</button>
+          <button class="btn" onclick="sendMail()">Send Request</button>
+        </div>
+
+        <p class="small" style="margin-top:10px">Or contact directly:</p>
+        <div class="wa">
+          <!-- Replace +91XXXXXXXXXX with your WhatsApp number -->
+          <a href="https://wa.me/+91XXXXXXXXXX?text=Hi%20Sarbajit%2C%20I%20want%20a%20reading" target="_blank">Message on WhatsApp</a>
+        </div>
+      </div>
+    </aside>
+  </main>
+
+  <section class="card" id="pricing" style="margin-top:18px">
+    <h3>Why choose Astro by SG</h3>
+    <div class="grid3">
+      <div style="padding:12px">
+        <h4 style="margin:6px 0 8px;color:#fff">Global reach</h4>
+        <p class="small">Deliverables are digital PDFs — customers worldwide.</p>
+      </div>
+      <div style="padding:12px">
+        <h4 style="margin:6px 0 8px;color:#fff">Taurus Moon aesthetic</h4>
+        <p class="small">Luxury, calm, and precise guidance tuned for emotional stability.</p>
+      </div>
+      <div style="padding:12px">
+        <h4 style="margin:6px 0 8px;color:#fff">Easy delivery</h4>
+        <p class="small">Payment links, WhatsApp delivery, and email — no shipping hassles.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="card" id="contact" style="margin-top:18px">
+    <h3>Contact & Social</h3>
+    <p class="small">Email: <a href="mailto:your-email@example.com" style="color:var(--accent)">your-email@example.com</a> • WhatsApp: <a href="tel:+91XXXXXXXXXX" style="color:var(--accent)">+91-XXXXXXXXXX</a></p>
+    <div style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap">
+      <a class="btn" href="#" target="_blank">Instagram</a>
+      <a class="btn" href="#" target="_blank">LinkedIn</a>
+      <a class="btn" href="#" target="_blank">YouTube</a>
+    </div>
+  </section>
+
+  <footer>
+    © <span id="year"></span> Astro by SG • Built for clarity • Powered by cosmic curiosity
+  </footer>
+</div>
+
+<script>
+  // small helpers
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  function sendMail(){
+    const name = encodeURIComponent(document.getElementById('name').value || 'Name');
+    const dob = encodeURIComponent(document.getElementById('dob').value || 'DOB');
+    const tob = encodeURIComponent(document.getElementById('tob').value || 'Time');
+    const pob = encodeURIComponent(document.getElementById('pob').value || 'Place');
+    const service = encodeURIComponent(document.getElementById('service').value);
+    const subject = encodeURIComponent('Astrology reading request — ' + name);
+    const body = encodeURIComponent(`Name: ${name}\nDOB: ${dob}\nTime: ${tob}\nPlace: ${pob}\nService: ${service}\n\nPlease confirm payment link and delivery.`);
+    window.location.href = `mailto:your-email@example.com?subject=${subject}&body=${body}`;
+  }
+
+  // Placeholder payment flow: Razorpay checkout example (needs real key + order)
+  function startPayment(){
+    const service = document.getElementById('service').value;
+    // For demo we just open mail flow; replace with real Razorpay integration when ready.
+    alert('Payment flow placeholder. To accept payments you must add Razorpay integration. I can set this up for you next.');
+    sendMail();
+  }
+
+  // Sample report preview (opens a small template)
+  document.getElementById('sample-report').addEventListener('click', function(e){
+    e.preventDefault();
+    const html = `
+      <html><body style="font-family:Arial;color:#222"><h2>Sample: Personal Astrology Report</h2>
+      <p>Sun sign: Sagittarius<br>Moon sign: Taurus<br>Rising: Virgo</p>
+      <p>This is a short sample. Your complete PDF will include planetary positions, career notes, love notes and a 6-month outlook.</p></body></html>`;
+    const w = window.open('','_blank');
+    w.document.write(html);
+    w.document.close();
+  });
+</script>
+
 </body>
 </html>
